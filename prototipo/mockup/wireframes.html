@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShadowDrill wireframes</title>
+<style>
+  body { margin: 0; padding: 24px 16px 64px; background: #f2f2f2; color: #222; font: 15px/1.45 system-ui, sans-serif; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .intro { max-width: 78ch; color: #555; margin-bottom: 24px; }
+  h2 { font-size: 1rem; color: #444; border-bottom: 1px solid #ccc; padding-bottom: 4px; margin: 28px 0 14px; }
+  .flujo { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+  figure { margin: 0; }
+  figcaption { font-weight: 700; margin-bottom: 6px; }
+  figcaption small { display: block; font-weight: 400; color: #666; }
+  .pantalla { background: #fff; border: 2px solid #333; border-radius: 6px; height: 260px; display: grid; grid-template-columns: 64px 1fr; overflow: hidden; }
+  .pantalla.plano { grid-template-columns: 1fr; }
+  .lado { background: #ccc; padding: 8px 6px; display: grid; align-content: start; gap: 6px; }
+  .lado i, .c i { display: block; height: 8px; background: #999; border-radius: 2px; }
+  .lado i.chip { height: 14px; border-radius: 3px; }
+  .lado i.on { background: #555; box-shadow: inset 2px 0 0 #000; }
+  .lado b { display: block; height: 16px; background: #555; border-radius: 3px; margin-top: 6px; }
+  .c { padding: 10px; display: grid; gap: 8px; align-content: start; }
+  .t { height: 14px; width: 55%; background: #333; border-radius: 2px; }
+  .ruta { font: 11px ui-monospace, monospace; color: #777; border-bottom: 1px dashed #bbb; padding-bottom: 4px; }
+  .caja { border: 1.5px dashed #777; border-radius: 4px; padding: 6px; font-size: 11px; color: #555; display: grid; place-items: center; text-align: center; }
+  .caja.solida { border-style: solid; }
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .calor { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; }
+  .calor span { height: 16px; border: 1px solid #999; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; padding: 2px; }
+  .calor span u { background: #bbb; }
+  .calor span:nth-child(3n) u { background: #555; }
+  .led { display: flex; gap: 2px; height: 14px; }
+  .led s { flex: 1; background: #bbb; }
+  .led s.a { background: #444; } .led s.b { background: #888; }
+  .btn { justify-self: end; background: #555; color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 3px; }
+  .term { background: #1b1b1b; color: #ddd; border-radius: 4px; padding: 6px 8px; font: 10px/1.5 ui-monospace, monospace; }
+  .term b { color: #fff; } .term .w { color: #bbb; }
+  .nota { font-size: 13px; color: #444; margin-top: 6px; }
+  .estado { display: inline-block; font-size: 10px; border: 1px solid #999; border-radius: 99px; padding: 1px 7px; color: #555; margin-left: 6px; vertical-align: middle; }
+</style>
+</head>
+<body>
+<h1>ShadowDrill: wireframes del flujo principal</h1>
+<p class="intro">Baja fidelidad (esquemas sin color ni tipografía final). Tarea principal del administrador de seguridad: crear y lanzar una campaña, seguir las decisiones en tiempo real, cerrarla para que se apliquen las reglas y revisar el perfil y la siguiente simulación sugerida de un empleado. Reflejan el prototipo final navegable en <code>../v1/index.html</code>. En las pantallas de la consola, el bloque gris de la izquierda es el menú lateral (opciones, botón «Nueva campaña» y «Entrar como»).</p>
+
+<h2>Entrada</h2>
+<div class="flujo">
+  <figure>
+    <figcaption>0. Pantalla de carga<small>Al abrir la app y en los cambios principales (entrar a la consola, cambiar de sección o de rol).</small></figcaption>
+    <div class="pantalla plano"><div class="c" style="place-content:center;text-align:center">
+      <div class="caja solida" style="padding:28px">CARGANDO<div style="height:2px;width:60%;background:#999;margin:10px auto 0"></div><small>Preparando el panel…</small></div></div></div>
+    <p class="nota">Baja desde arriba, se mantiene un mínimo y sube. El contenido aparece al levantarse: ahí corren las animaciones de entrada.</p>
+  </figure>
+
+  <figure>
+    <figcaption>0b. Portada / historia<small>Página comercial con scroll. No es la consola; lleva a elegir rol y entrar.</small></figcaption>
+    <div class="pantalla plano"><div class="c">
+      <div class="t" style="width:70%;height:22px"></div>
+      <div class="g2"><div class="caja" style="height:70px">PC: Outlook (correo)</div><div class="caja" style="height:70px">Celular: Teams</div></div>
+      <div class="caja">Capítulos: problema · cambio · cómo funciona · mundos A/B · actores · comparativa · ética</div>
+      <span class="btn">Entrar al panel</span></div></div>
+  </figure>
+</div>
+
+<h2>Consola (Mundo A)</h2>
+<div class="flujo">
+  <figure>
+    <figcaption>1. Panel de indicadores<small>Datos agregados, estética de consola. Admin ve todo; responsable solo agregados.</small></figcaption>
+    <div class="pantalla"><div class="lado"><i class="chip on"></i><i class="chip"></i><i class="chip"></i><b></b></div>
+      <div class="c"><div class="ruta">&rsaquo; ~/indicadores</div>
+        <div class="g2"><div class="caja">Tasa de fallo + medidor VU<div class="led" style="width:100%;margin-top:4px"><s class="a"></s><s class="a"></s><s class="b"></s><s></s><s></s></div></div><div class="caja">Evolución por campaña (línea)</div></div>
+        <div class="g2"><div class="caja">Resultados por escenario<div class="led" style="width:100%;margin-top:4px"><s class="a"></s><s class="a"></s><s class="b"></s><s class="b"></s><s></s></div></div><div class="caja">Distribución (dial)</div></div>
+        <div class="g3"><div class="caja">reporte %</div><div class="caja">eventos</div><div class="caja">amenaza débil</div></div></div></div>
+    <p class="nota">Debajo siguen: mapa de calor área×amenaza (matriz de puntos) y el mapa de relaciones (grafo).</p>
+  </figure>
+
+  <figure>
+    <figcaption>1b. Mapa de calor + mapa de relaciones<small>Parte baja del panel.</small></figcaption>
+    <div class="pantalla"><div class="lado"><i class="chip on"></i><i class="chip"></i><i class="chip"></i><b></b></div>
+      <div class="c"><div class="caja"><div class="calor"><span><u></u><u></u><u></u><u></u><u></u></span><span><u></u><u></u><u></u><u></u><u></u></span><span><u></u><u></u><u></u><u></u><u></u></span><span><u></u><u></u><u></u><u></u><u></u></span><span><u></u><u></u><u></u><u></u><u></u></span></div></div>
+        <div class="caja" style="height:110px">Grafo: canales → campañas → amenazas → áreas → resultados.<br>Nodos y líneas; grosor = nº de decisiones. Capa «personas» solo admin.</div></div></div>
+  </figure>
+
+  <figure>
+    <figcaption>2. Nueva campaña · pasos 1 y 2<small>Encabezado tipo terminal por paso. Escenario (4 tarjetas) y destinatarios por área.</small></figcaption>
+    <div class="pantalla"><div class="lado"><i class="chip"></i><i class="chip on"></i><i class="chip"></i><b></b></div>
+      <div class="c"><div class="ruta">&rsaquo; campaña/nueva/paso_01 // ESCENARIO</div>
+        <div class="g4"><div class="caja">1</div><div class="caja">2</div><div class="caja">3</div><div class="caja">4</div></div>
+        <div class="g2"><div class="caja">Phishing</div><div class="caja">Ingeniería social</div><div class="caja">Archivo sosp.</div><div class="caja">Página falsa</div></div>
+        <div class="caja">Vista previa del mensaje (Mundo B)</div><span class="btn">Continuar</span></div></div>
+  </figure>
+
+  <figure>
+    <figcaption>3. Nueva campaña · pasos 3 y 4<small>Canal, ventana no anunciada, buzón de reporte, resumen, cómo se registra y confirmación ética.</small></figcaption>
+    <div class="pantalla"><div class="lado"><i class="chip"></i><i class="chip on"></i><i class="chip"></i><b></b></div>
+      <div class="c"><div class="ruta">&rsaquo; campaña/nueva/paso_03 // CANAL Y VENTANA</div>
+        <div class="g2"><div class="caja">Correo</div><div class="caja">Teams</div></div>
+        <div class="g2"><div class="caja">Desde</div><div class="caja">Hasta</div></div>
+        <div class="caja">Buzón de reporte + resumen + regla</div><div class="caja">☐ Confirmo periodo anunciado</div><span class="btn">Lanzar campaña</span></div></div>
+  </figure>
+
+  <figure>
+    <figcaption>4. Campaña en curso<small>Contadores, lista de destinatarios y registro de eventos tipo terminal.</small></figcaption>
+    <div class="pantalla"><div class="lado"><i class="chip"></i><i class="chip on"></i><i class="chip"></i><b></b></div>
+      <div class="c"><div class="t"></div>
+        <div class="g4"><div class="caja">entregados</div><div class="caja">cayeron</div><div class="caja">reportaron</div><div class="caja">ignoraron</div></div>
+        <div class="g2"><div class="caja" style="height:96px">Destinatarios: avatar, estado, evento y hora</div>
+          <div class="term" style="height:96px"><b>admin@shadowdrill</b>:<span class="w">~/tracking$</span> tail -f<br>15:12 WARN DESCARGA · Laura<br>16:06 OK REPORTADO · Carolina<br>23:59 INFO CERRADO · Jorge</div></div>
+        <span class="btn">Cerrar campaña y evaluar</span></div></div>
+    <p class="nota">Botón «Ver lo que recibe el empleado»: abre el Mundo B (figura 5).</p>
+  </figure>
+</div>
+
+<h2>Mundo B y perfil</h2>
+<div class="flujo">
+  <figure>
+    <figcaption>5. Vista del empleado (Mundo B)<small>Modal con un PC de escritorio (Windows). Correo en Outlook o chat en Teams de escritorio.</small></figcaption>
+    <div class="pantalla plano"><div class="c">
+      <div class="caja solida" style="height:150px;padding:0;overflow:hidden">
+        <div style="background:#ddd;height:16px;display:grid;grid-template-columns:1fr auto;align-items:center;padding:0 6px;font-size:9px">Outlook / Teams — ventana<span>− ▢ ✕</span></div>
+        <div class="g2" style="height:100%;padding:6px"><div class="caja">Lista de correos / chats</div><div class="caja">Mensaje + enlace único<br><span class="btn" style="justify-self:center;margin-top:4px">Acción</span></div></div></div>
+      <div class="caja">Al actuar: navegador abre el enlace. Sello del evento (DESCARGA/CLIC/FORMULARIO/RESPUESTA) o «Reportar».</div></div></div>
+    <p class="nota">Barra de tareas y notificación de Windows. Página falsa = login estilo Microsoft 365; nada se guarda.</p>
+  </figure>
+
+  <figure>
+    <figcaption>6. Campaña cerrada<small>Se aplican las reglas y se actualizan los perfiles.</small></figcaption>
+    <div class="pantalla"><div class="lado"><i class="chip"></i><i class="chip on"></i><i class="chip"></i><b></b></div>
+      <div class="c"><div class="t"></div>
+        <div class="g3"><div class="caja">cayó</div><div class="caja">reportó</div><div class="caja">ignoró</div></div>
+        <div class="caja" style="height:90px">Resultado por área + reglas aplicadas (R-EV-*). Perfiles actualizados.</div></div></div>
+  </figure>
+
+  <figure>
+    <figcaption>7. Perfil del empleado<small>Competencias por escenario, siguiente simulación por regla e historial. Solo admin.</small></figcaption>
+    <div class="pantalla"><div class="lado"><i class="chip"></i><i class="chip"></i><i class="chip on"></i><b></b></div>
+      <div class="c"><div class="t"></div>
+        <div class="g2"><div class="caja" style="height:80px">Radar + 4 barras de competencia (0–100)</div><div class="caja" style="height:80px">Siguiente simulación + regla R-SEL-1</div></div>
+        <div class="caja" style="height:66px">Historial: fecha, campaña, resultado, regla aplicada</div></div></div>
+  </figure>
+
+  <figure>
+    <figcaption>8. Rol responsable<small>«Entrar como» → Responsable. Solo datos agregados; lo individual queda bloqueado.</small></figcaption>
+    <div class="pantalla"><div class="lado"><i class="chip on"></i><i class="chip"></i><i></i><b></b></div>
+      <div class="c"><div class="t"></div>
+        <div class="caja" style="height:70px">Panel agregado (igual que fig. 1)</div>
+        <div class="caja" style="height:70px">Empleados / perfiles individuales: BLOQUEADO <span class="estado">sin acceso</span></div></div></div>
+    <p class="nota">Cumple la regla de ética: los resultados individuales nunca se muestran al responsable.</p>
+  </figure>
+</div>
+</body>
+</html>

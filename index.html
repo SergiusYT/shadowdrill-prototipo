@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShadowDrill · Entregables</title>
+<style>
+  :root { --bg:#060a11; --tinta:#e8eef6; --sub:#8b9ab0; --linea:rgba(186,214,255,.12); --senal:#22d3ee; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; background:
+      radial-gradient(900px 600px at 85% -5%, rgba(34,211,238,.16), transparent 60%),
+      radial-gradient(700px 500px at 10% 105%, rgba(14,165,198,.14), transparent 60%), var(--bg);
+    color:var(--tinta); font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; padding:48px 18px 80px; }
+  .wrap { max-width:760px; margin:0 auto; }
+  .marca { display:flex; align-items:center; gap:12px; margin-bottom:6px; }
+  .marca b { font:800 1.5rem/1 "Bricolage Grotesque",system-ui,sans-serif; }
+  .dot { width:14px; height:14px; border-radius:50%; background:var(--senal); box-shadow:0 0 14px var(--senal); }
+  h1 { font-size:clamp(1.8rem,4vw,2.6rem); letter-spacing:-.02em; margin:14px 0 6px; }
+  .lead { color:var(--sub); max-width:60ch; margin:0 0 30px; }
+  .cards { display:grid; gap:14px; }
+  a.card { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:16px; text-decoration:none; color:inherit;
+    border:1px solid var(--linea); border-radius:14px; padding:18px 20px; background:rgba(148,178,214,.04); transition:.2s; }
+  a.card:hover { border-color:var(--senal); background:rgba(34,211,238,.06); transform:translateY(-2px); }
+  .ico { width:44px; height:44px; display:grid; place-items:center; border-radius:11px; background:rgba(34,211,238,.12); border:1px solid rgba(34,211,238,.3); color:var(--senal); font:700 1.1rem ui-monospace,monospace; }
+  .card h2 { margin:0 0 2px; font-size:1.1rem; }
+  .card p { margin:0; color:var(--sub); font-size:.9rem; }
+  .flecha { color:var(--senal); font-size:1.4rem; }
+  .pie { margin-top:34px; color:var(--sub); font-size:.84rem; border-top:1px solid var(--linea); padding-top:18px; }
+  .pie code { color:var(--tinta); background:rgba(148,178,214,.1); padding:1px 6px; border-radius:4px; font-size:.85em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="marca"><span class="dot"></span><b>ShadowDrill</b></div>
+  <h1>Prototipo y entregables</h1>
+  <p class="lead">Plataforma de capacitación en ciberseguridad mediante simulaciones. Trabajo de grado, Ingeniería de Sistemas, U. El Bosque. Abre cada pieza desde aquí.</p>
+
+  <div class="cards">
+    <a class="card" href="prototipo/v1/index.html">
+      <span class="ico">1</span>
+      <span><h2>Prototipo navegable</h2><p>El flujo completo: panel, campañas, Mundo B, perfiles. HTML/CSS/JS, sin backend.</p></span>
+      <span class="flecha">→</span>
+    </a>
+    <a class="card" href="prototipo/mockup/wireframes.html">
+      <span class="ico">2</span>
+      <span><h2>Wireframes</h2><p>Esquemas de baja fidelidad de todas las pantallas y estados.</p></span>
+      <span class="flecha">→</span>
+    </a>
+    <a class="card" href="entrega/encuesta.html">
+      <span class="ico">3</span>
+      <span><h2>Encuesta de usabilidad</h2><p>Prueba con 3 usuarios: SUS, tareas y gráficas automáticas.</p></span>
+      <span class="flecha">→</span>
+    </a>
+  </div>
+
+  <p class="pie">Documentación: <code>prototipo/README.md</code> · <code>entrega/PRUEBA_USUARIOS.md</code> · <code>entrega/USO_DE_IA.md</code>. Las respuestas de la encuesta se guardan en el navegador y se exportan a <code>.json</code> para versionarlas en el repositorio.</p>
+</div>
+</body>
+</html>

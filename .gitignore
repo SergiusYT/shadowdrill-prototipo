@@ -1,0 +1,14 @@
+# Sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# Dependencias (no se usan, por si acaso)
+node_modules/
+
+# Temporales
+*.tmp
+.cache/
+
+# Artefacto de graphify (regenerable)
+graphify-out/

@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShadowDrill · Encuesta de usabilidad (3 usuarios)</title>
+<style>
+  :root { --tinta:#1b2430; --sub:#5b6676; --linea:#d8dee6; --marca:#0e7490; --marca2:#38bdf8; --ok:#10845a; --mal:#c23b3b; --bg:#eef1f5; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--tinta); font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; padding:22px 14px 90px; }
+  .hoja { max-width:820px; margin:0 auto; }
+  header.cab { background:var(--marca); color:#fff; border-radius:12px; padding:20px 24px; margin-bottom:16px; }
+  header.cab h1 { margin:0 0 4px; font-size:1.35rem; }
+  header.cab p { margin:0; opacity:.9; font-size:.92rem; }
+  .tabs { display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap; }
+  .tab { flex:1; min-width:120px; border:1px solid var(--linea); background:#fff; border-radius:10px 10px 0 0; padding:10px; font:600 .9rem inherit; cursor:pointer; color:var(--sub); }
+  .tab.activo { background:var(--marca); color:#fff; border-color:var(--marca); }
+  .tab small { display:block; font-weight:400; font-size:.72rem; opacity:.8; }
+  section { background:#fff; border:1px solid var(--linea); border-radius:12px; padding:18px 20px; box-shadow:0 1px 2px rgba(0,0,0,.04); margin-bottom:16px; }
+  section h2 { margin:0 0 4px; font-size:1.05rem; }
+  section .ayuda { margin:0 0 14px; color:var(--sub); font-size:.88rem; }
+  label.campo { display:block; margin-bottom:13px; font-weight:600; font-size:.9rem; }
+  label.campo input, label.campo select, label.campo textarea { width:100%; margin-top:5px; padding:9px 11px; border:1px solid var(--linea); border-radius:8px; font:inherit; color:var(--tinta); background:#fcfdfe; }
+  label.campo input:focus, label.campo select:focus, label.campo textarea:focus { outline:none; border-color:var(--marca); box-shadow:0 0 0 3px rgba(14,116,144,.15); }
+  textarea { resize:vertical; min-height:54px; }
+  .fila { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .sus-item { padding:11px 0; border-top:1px solid var(--linea); }
+  .sus-item:first-of-type { border-top:0; }
+  .sus-item p { margin:0 0 7px; font-weight:600; font-size:.92rem; }
+  .escala { display:flex; gap:6px; flex-wrap:wrap; }
+  .escala label { flex:1; min-width:48px; text-align:center; border:1px solid var(--linea); border-radius:8px; padding:7px 4px; cursor:pointer; font-size:.82rem; color:var(--sub); }
+  .escala input { position:absolute; opacity:0; }
+  .escala label:has(input:checked) { background:var(--marca); border-color:var(--marca); color:#fff; }
+  .escala small { display:block; font-size:.62rem; margin-top:2px; }
+  .leyenda-escala { font-size:.76rem; color:var(--sub); margin:0 0 10px; }
+  .panel { display:none; } .panel.activo { display:block; }
+  /* resultados */
+  .kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:6px; }
+  .kpi { border:1px solid var(--linea); border-radius:10px; padding:14px; text-align:center; }
+  .kpi b { display:block; font-size:1.8rem; color:var(--marca); line-height:1.1; }
+  .kpi.meta-ok b { color:var(--ok); } .kpi.meta-no b { color:var(--mal); }
+  .kpi span { font-size:.78rem; color:var(--sub); }
+  .graf { margin-top:14px; }
+  .graf h3 { font-size:.92rem; margin:0 0 8px; }
+  .bars { display:grid; gap:8px; }
+  .bar-row { display:grid; grid-template-columns:120px 1fr 46px; align-items:center; gap:10px; font-size:.84rem; }
+  .bar-track { height:18px; background:#eef1f5; border-radius:4px; overflow:hidden; }
+  .bar-fill { height:100%; background:var(--marca); border-radius:4px; }
+  .bar-row b { text-align:right; font-variant-numeric:tabular-nums; }
+  .item-row { grid-template-columns:1fr 90px 36px; }
+  .item-row .bar-track { background:#f3d6d6; } .item-row .bar-fill { background:var(--ok); }
+  .lista-ab { font-size:.86rem; }
+  .lista-ab li { margin-bottom:6px; }
+  .lista-ab b { color:var(--sub); font-weight:600; }
+  .acc { position:sticky; bottom:0; margin-top:4px; background:var(--tinta); color:#fff; border-radius:12px; padding:12px 16px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+  .acc .estado { margin-right:auto; font-size:.82rem; opacity:.85; }
+  .btn { border:0; border-radius:8px; padding:9px 15px; font:600 .9rem inherit; cursor:pointer; }
+  .btn-1 { background:var(--marca); color:#fff; } .btn-2 { background:#fff; color:var(--tinta); border:1px solid var(--linea); }
+  @media print { body { background:#fff; padding:0; } .tabs,.acc,.btn { display:none; } .panel { display:block !important; } section { break-inside:avoid; box-shadow:none; } .no-print { display:none; } }
+</style>
+</head>
+<body>
+<div class="hoja">
+  <header class="cab">
+    <h1>ShadowDrill · Encuesta de usabilidad</h1>
+    <p>Llena los 3 participantes. Se guarda solo en este navegador. La pestaña «Resultados» arma las gráficas y el resumen.</p>
+  </header>
+
+  <div class="tabs" id="tabs">
+    <button class="tab activo" data-tab="0">Participante 1<small>sin datos</small></button>
+    <button class="tab" data-tab="1">Participante 2<small>sin datos</small></button>
+    <button class="tab" data-tab="2">Participante 3<small>sin datos</small></button>
+    <button class="tab" data-tab="r">Resultados</button>
+  </div>
+
+  <form id="participantes"></form>
+
+  <div class="panel" id="panel-r">
+    <section>
+      <h2>Resumen</h2>
+      <p class="ayuda">Se calcula con lo que escribiste. La meta del proyecto es SUS promedio ≥ 70.</p>
+      <div class="kpis" id="kpis"></div>
+    </section>
+    <section>
+      <div class="graf"><h3>Puntaje SUS por participante (0–100, meta 70)</h3><div class="bars" id="g-sus"></div></div>
+      <div class="graf"><h3>Aporte promedio por pregunta SUS (0–4; barras bajas = puntos débiles)</h3><div class="bars" id="g-items"></div></div>
+    </section>
+    <section>
+      <h2>Dónde dudaron y qué cambiarían</h2>
+      <ul class="lista-ab" id="abiertas"></ul>
+    </section>
+  </div>
+
+  <div class="acc">
+    <span class="estado" id="estado">—</span>
+    <button type="button" class="btn btn-2" id="limpiar">Borrar todo</button>
+    <label class="btn btn-2" style="cursor:pointer">Cargar (.json)<input type="file" id="cargar-json" accept="application/json,.json" hidden></label>
+    <button type="button" class="btn btn-2" id="imprimir">Imprimir / PDF</button>
+    <button type="button" class="btn btn-1" id="descargar">Descargar (.json)</button>
+  </div>
+</div>
+
+<script>
+  const SUS = [
+    'Creo que me gustaría usar este sistema con frecuencia.',
+    'Encontré el sistema innecesariamente complejo.',
+    'Pensé que el sistema era fácil de usar.',
+    'Creo que necesitaría ayuda de una persona técnica para usarlo.',
+    'Las funciones del sistema estaban bien integradas.',
+    'Había demasiada inconsistencia en el sistema.',
+    'Imagino que la mayoría aprendería a usarlo muy rápido.',
+    'Encontré el sistema muy engorroso de usar.',
+    'Me sentí muy seguro usando el sistema.',
+    'Necesité aprender muchas cosas antes de poder usarlo.'
+  ];
+  const Q = [
+    ['q1', '¿En qué momento no supiste qué hacer?'],
+    ['q2', '¿Qué nombre o botón te confundió?'],
+    ['q3', '¿Qué información esperabas ver y no estaba?'],
+    ['q4', '¿Qué cambiarías primero?'],
+    ['q5', '¿Te quedó claro que el empleado recibe el mensaje en su correo real y no entra a ShadowDrill?']
+  ];
+  const CLAVE = 'shadowdrill-encuesta-3';
+  const cont = document.getElementById('participantes');
+
+  // --- construir los 3 paneles de participante ---
+  for (let p = 0; p < 3; p++) {
+    const susHtml = SUS.map((t, i) => {
+      const n = i + 1;
+      const opts = [1,2,3,4,5].map(v => `<label><input type="radio" name="p${p}_sus${n}" value="${v}"><span>${v}${v===1?'<small>en desac.</small>':v===5?'<small>de acuerdo</small>':''}</span></label>`).join('');
+      return `<div class="sus-item"><p>${n}. ${t}</p><div class="escala">${opts}</div></div>`;
+    }).join('');
+    const abHtml = Q.map(([k, t]) => `<label class="campo">${t}<textarea name="p${p}_${k}"></textarea></label>`).join('');
+    cont.insertAdjacentHTML('beforeend', `
+      <div class="panel ${p===0?'activo':''}" id="panel-${p}">
+        <section>
+          <h2>Participante ${p+1}</h2>
+          <p class="ayuda">Anónimo. Cronometra desde que lee la tarea hasta su respuesta final.</p>
+          <label class="campo">Perfil (carrera, semestre o cargo)<input type="text" name="p${p}_perfil"></label>
+          <div class="fila">
+            <label class="campo">¿Completó sin ayuda?<select name="p${p}_completo"><option value="">—</option><option>Sí</option><option>No</option></select></label>
+            <label class="campo">Tiempo (mm:ss)<input type="text" name="p${p}_tiempo" placeholder="03:40"></label>
+          </div>
+          <label class="campo">Respuesta que dio (escenario sugerido para Laura)<input type="text" name="p${p}_respuesta"></label>
+          <label class="campo">Paso donde dudó (si aplica)<input type="text" name="p${p}_paso"></label>
+        </section>
+        <section>
+          <h2>Escala SUS</h2>
+          <p class="leyenda-escala">1 = totalmente en desacuerdo · 5 = totalmente de acuerdo</p>
+          ${susHtml}
+        </section>
+        <section><h2>Preguntas abiertas</h2>${abHtml}</section>
+      </div>`);
+  }
+
+  const f = document.getElementById('participantes');
+  const val = n => (f.elements[n] ? f.elements[n].value : '');
+  const susP = p => {
+    let s = 0;
+    for (let i = 1; i <= 10; i++) {
+      const el = f.elements[`p${p}_sus${i}`];
+      const v = +(el ? el.value : 0);
+      if (!v) return null;
+      s += (i % 2 === 1) ? v - 1 : 5 - v;
+    }
+    return s; // 0..40
+  };
+  const seg = t => { const m = /^(\d+):(\d{1,2})$/.exec((t||'').trim()); return m ? +m[1]*60 + +m[2] : null; };
+  const mmss = s => `${Math.floor(s/60)}:${String(Math.round(s%60)).padStart(2,'0')}`;
+
+  // --- pestañas ---
+  document.getElementById('tabs').addEventListener('click', e => {
+    const b = e.target.closest('.tab'); if (!b) return;
+    document.querySelectorAll('.tab').forEach(x => x.classList.toggle('activo', x === b));
+    document.querySelectorAll('.panel').forEach(x => x.classList.remove('activo'));
+    document.getElementById('panel-' + b.dataset.tab).classList.add('activo');
+    if (b.dataset.tab === 'r') render();
+  });
+
+  // --- persistencia ---
+  function guardar() {
+    const o = {};
+    new FormData(f).forEach((v, k) => o[k] = v);
+    try { localStorage.setItem(CLAVE, JSON.stringify(o)); } catch(e) {}
+    marcarTabs();
+    document.getElementById('estado').textContent = 'Guardado ' + new Date().toLocaleTimeString();
+  }
+  function cargar() {
+    let o; try { o = JSON.parse(localStorage.getItem(CLAVE) || 'null'); } catch(e) {}
+    if (!o) return;
+    for (const k in o) { const el = f.elements[k]; if (!el) continue;
+      if (el.length && el[0] && el[0].type === 'radio') { [...el].forEach(r => r.checked = r.value === o[k]); }
+      else el.value = o[k];
+    }
+  }
+  function marcarTabs() {
+    for (let p = 0; p < 3; p++) {
+      const sus = susP(p), comp = val(`p${p}_completo`);
+      const t = document.querySelector(`.tab[data-tab="${p}"] small`);
+      t.textContent = sus !== null ? `SUS ${Math.round(sus*2.5)}${comp?' · '+comp:''}` : (val(`p${p}_perfil`) ? 'incompleto' : 'sin datos');
+    }
+  }
+  f.addEventListener('input', guardar);
+  f.addEventListener('change', guardar);
+
+  // --- resultados ---
+  function barra(label, v, max, suf, cls='') {
+    const pct = Math.max(0, Math.min(100, v/max*100));
+    return `<div class="bar-row ${cls}"><span>${label}</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div><b>${suf}</b></div>`;
+  }
+  function render() {
+    const sus = [0,1,2].map(susP);
+    const validos = sus.filter(x => x !== null).map(x => x*2.5);
+    const prom = validos.length ? Math.round(validos.reduce((a,b)=>a+b,0)/validos.length) : null;
+    const comp = [0,1,2].filter(p => val(`p${p}_completo`) === 'Sí').length;
+    const compTot = [0,1,2].filter(p => ['Sí','No'].includes(val(`p${p}_completo`))).length;
+    const tiempos = [0,1,2].map(p => seg(val(`p${p}_tiempo`))).filter(x => x !== null);
+    const tProm = tiempos.length ? mmss(tiempos.reduce((a,b)=>a+b,0)/tiempos.length) : '—';
+
+    document.getElementById('kpis').innerHTML =
+      `<div class="kpi ${prom===null?'':prom>=70?'meta-ok':'meta-no'}"><b>${prom===null?'—':prom}</b><span>SUS promedio${prom===null?'':prom>=70?' · cumple ≥70':' · bajo 70'}</span></div>
+       <div class="kpi"><b>${comp}/${compTot||3}</b><span>completaron sin ayuda</span></div>
+       <div class="kpi"><b>${tProm}</b><span>tiempo promedio</span></div>`;
+
+    document.getElementById('g-sus').innerHTML = [0,1,2].map(p => {
+      const s = susP(p); const nom = val(`p${p}_perfil`) || ('Participante '+(p+1));
+      return barra(nom.slice(0,16), s===null?0:s*2.5, 100, s===null?'—':Math.round(s*2.5));
+    }).join('') + `<div class="bar-row"><span style="color:var(--mal);font-size:.78rem">Meta</span><div class="bar-track" style="background:none"><div style="width:70%;border-right:2px dashed var(--mal);height:18px"></div></div><b>70</b></div>`;
+
+    // aporte promedio por pregunta (0..4). impares v-1, pares 5-v.
+    document.getElementById('g-items').innerHTML = SUS.map((t, i) => {
+      const n = i+1; const aportes = [0,1,2].map(p => { const v=+(f.elements[`p${p}_sus${n}`]?.value||0); return v?(n%2===1?v-1:5-v):null; }).filter(x=>x!==null);
+      const m = aportes.length ? aportes.reduce((a,b)=>a+b,0)/aportes.length : 0;
+      return barra(`${n}. ${t.slice(0,34)}…`, m, 4, m?m.toFixed(1):'—', 'item-row');
+    }).join('');
+
+    const ab = Q.map(([k,t]) => {
+      const r = [0,1,2].map(p => val(`p${p}_${k}`).trim()).filter(Boolean);
+      return r.length ? `<li><b>${t}</b><ul>${r.map(x=>`<li>${x}</li>`).join('')}</ul></li>` : '';
+    }).join('');
+    document.getElementById('abiertas').innerHTML = ab || '<li class="ayuda">Aún no hay respuestas abiertas.</li>';
+  }
+
+  document.getElementById('descargar').addEventListener('click', () => {
+    const data = { participantes: [0,1,2].map(p => {
+      const o = { perfil: val(`p${p}_perfil`), completo: val(`p${p}_completo`), tiempo: val(`p${p}_tiempo`), respuesta: val(`p${p}_respuesta`), paso: val(`p${p}_paso`), sus: susP(p)!==null?susP(p)*2.5:null };
+      for (let i=1;i<=10;i++) o['sus'+i] = +(f.elements[`p${p}_sus${i}`]?.value||0) || null;
+      Q.forEach(([k])=>o[k]=val(`p${p}_${k}`));
+      return o;
+    }), fecha: new Date().toISOString() };
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(data,null,2)], {type:'application/json'}));
+    a.download = 'encuesta-shadowdrill-3usuarios.json'; a.click();
+  });
+  // Cargar un respuestas.json (el que produce «Descargar») de vuelta al formulario.
+  function importar(data) {
+    const ps = data && data.participantes;
+    if (!Array.isArray(ps)) { alert('El archivo no tiene el formato esperado (participantes[]).'); return; }
+    const set = (n, v) => { const el = f.elements[n]; if (!el || v == null || v === '') return;
+      if (el.length && el[0] && el[0].type === 'radio') [...el].forEach(r => r.checked = String(r.value) === String(v)); else el.value = v; };
+    ps.slice(0, 3).forEach((o, p) => {
+      ['perfil','completo','tiempo','respuesta','paso'].forEach(k => set(`p${p}_${k}`, o[k]));
+      for (let i = 1; i <= 10; i++) set(`p${p}_sus${i}`, o['sus' + i]);
+      Q.forEach(([k]) => set(`p${p}_${k}`, o[k]));
+    });
+    guardar(); render();
+    document.querySelector('.tab[data-tab="r"]').click();
+  }
+  document.getElementById('cargar-json').addEventListener('change', e => {
+    const file = e.target.files[0]; if (!file) return;
+    const r = new FileReader();
+    r.onload = () => { try { importar(JSON.parse(r.result)); } catch (err) { alert('No se pudo leer el JSON: ' + err.message); } };
+    r.readAsText(file); e.target.value = '';
+  });
+  document.getElementById('imprimir').addEventListener('click', () => { render(); window.print(); });
+  document.getElementById('limpiar').addEventListener('click', () => {
+    if (!confirm('¿Borrar las respuestas de los 3 participantes?')) return;
+    try { localStorage.removeItem(CLAVE); } catch(e) {}
+    f.reset(); marcarTabs(); document.getElementById('estado').textContent = 'Borrado';
+  });
+
+  cargar(); marcarTabs();
+</script>
+</body>
+</html>
