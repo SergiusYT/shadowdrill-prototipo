@@ -27,7 +27,23 @@ wireframes y los entregables de la prueba con usuarios.
 | `entrega/respuestas/` | Archivos `respuestas.json` persistidos (prueba con usuarios) |
 | `entrega/PRUEBA_USUARIOS.md` | Protocolo, encuesta SUS e informe |
 | `entrega/USO_DE_IA.md` | Prompt, skills y agentes usados |
-| `Propuesta_ShadowDrill_FORMATO_OFICIAL.pdf` | Propuesta de trabajo de grado (especificación) |
+| `Propuesta_ShadowDrill_FORMATO_OFICIAL.pdf` | Propuesta de trabajo de grado (la especificación del proyecto) |
+| `CLAUDE.md` | Guía para el asistente de IA (contexto del repositorio) |
+
+### Archivos de contexto
+
+- **`Propuesta_ShadowDrill_FORMATO_OFICIAL.pdf`** — Es la propuesta formal del trabajo de grado y la
+  **especificación** del proyecto: objetivos, alcance, los 4 escenarios obligatorios, la arquitectura
+  (Mundo A / Mundo B, puente de entrega, API de tracking, monolito Django + PostgreSQL), las
+  decisiones de diseño (ADR) y las metas de calidad (cobertura ≥ 75 %, SUS ≥ 70, registro < 1 s). El
+  prototipo y los wireframes se construyeron a partir de este documento.
+- **`CLAUDE.md`** — Archivo de contexto para Claude Code (el asistente de IA). Resume qué es
+  ShadowDrill, la arquitectura planeada, las decisiones de diseño a respetar y las restricciones
+  éticas y de alcance, para que la IA trabaje alineada con la propuesta. No es parte del producto;
+  es documentación de apoyo (detalle del uso de IA en `entrega/USO_DE_IA.md`).
+
+> Nota: `graphify-out/` (un grafo del código generado como apoyo) queda fuera del repositorio por
+> `.gitignore`, porque es regenerable y no es un entregable.
 
 ## Abrir en local
 
