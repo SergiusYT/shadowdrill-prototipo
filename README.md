@@ -1,19 +1,24 @@
-# ShadowDrill
+# ShadowDrill — Prototipo
 
-Plataforma de capacitación en ciberseguridad mediante simulaciones. Trabajo de grado, Ingeniería
-de Sistemas, Universidad El Bosque. Este repositorio contiene el prototipo navegable, los
-wireframes y los entregables de la prueba con usuarios.
+> **Este repositorio es el PROTOTIPO del proyecto de grado ShadowDrill, no el producto final.**
+> Es una simulación navegable del flujo principal, sin backend ni despliegue real, hecha para
+> validar el diseño con usuarios. La especificación completa está en
+> `Propuesta_ShadowDrill_FORMATO_OFICIAL.pdf`.
 
-> **Ajusta los enlaces:** reemplaza `SergiusYT/ShadowDrill` por tu usuario/repositorio reales si
-> son distintos. El link de GitHub Pages solo funciona con el repositorio **público** y Pages
-> activado (ver más abajo).
+ShadowDrill es una plataforma de capacitación en ciberseguridad mediante simulaciones. Trabajo de
+grado, Ingeniería de Sistemas, Universidad El Bosque. Este repositorio reúne el prototipo
+navegable, los wireframes y los entregables de la prueba con usuarios.
+
+> **Ajusta los enlaces:** reemplaza `SergiusYT/shadowdrill-prototipo` por tu usuario/repositorio
+> reales si son distintos. El link de GitHub Pages solo funciona con el repositorio **público** y
+> Pages activado (ver más abajo).
 
 ## Enlaces (GitHub Pages)
 
-- **Inicio:** https://sergiusyt.github.io/ShadowDrill/
-- **Prototipo:** https://sergiusyt.github.io/ShadowDrill/prototipo/v1/
-- **Wireframes:** https://sergiusyt.github.io/ShadowDrill/prototipo/mockup/wireframes.html
-- **Encuesta de usabilidad:** https://sergiusyt.github.io/ShadowDrill/entrega/encuesta.html
+- **Inicio:** https://sergiusyt.github.io/shadowdrill-prototipo/
+- **Prototipo:** https://sergiusyt.github.io/shadowdrill-prototipo/prototipo/v1/
+- **Wireframes:** https://sergiusyt.github.io/shadowdrill-prototipo/prototipo/mockup/wireframes.html
+- **Encuesta de usabilidad:** https://sergiusyt.github.io/shadowdrill-prototipo/entrega/encuesta.html
 
 ## Contenido
 
@@ -69,7 +74,7 @@ El sitio es estático (GitHub Pages): no hay backend que escriba archivos. La en
 
 ```bash
 # en la carpeta del proyecto
-git remote add origin https://github.com/SergiusYT/ShadowDrill.git
+git remote add origin https://github.com/SergiusYT/shadowdrill-prototipo.git
 git push -u origin main
 ```
 
