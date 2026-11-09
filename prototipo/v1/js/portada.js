@@ -955,6 +955,15 @@ function iniciarPortada() {
     once: true
   });
 
+  // Red de seguridad: si una animación de entrada se interrumpe (por el loader o un salto de
+  // scroll), la sección no debe quedar pegada en opacity:0. Aquí se fuerza a mostrarla.
+  const asegurarVisible = () => document.querySelectorAll('.revelar').forEach(el => {
+    if (parseFloat(getComputedStyle(el).opacity) === 0 && !gsap.isTweening(el)) gsap.set(el, { clearProps: 'opacity,transform' });
+  });
+  ScrollTrigger.addEventListener('refresh', asegurarVisible);
+  window.addEventListener('load', () => setTimeout(asegurarVisible, 500), { once: true });
+  setTimeout(asegurarVisible, 2500);
+
   if (window.Lenis) {
     portada.lenis = new Lenis();
     portada.lenis.on('scroll', ScrollTrigger.update);
