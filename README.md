@@ -80,3 +80,10 @@ git push -u origin main
 
 Activar Pages: en GitHub → **Settings → Pages → Build and deployment → Source: Deploy from a
 branch → Branch: `main` / `/root`** → Save. En uno o dos minutos queda el link de arriba.
+
+## Licencia
+
+**Todos los derechos reservados.** © 2026 Sergio Lozano, Juan Gonzalez y David Bejarano. Este
+repositorio se publica solo con fines académicos y de demostración. No se concede permiso para
+copiar, usar, modificar ni distribuir la obra sin autorización escrita de los autores. Ver
+[`LICENSE`](LICENSE).
